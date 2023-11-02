@@ -1,0 +1,6 @@
+/**
+ * server
+ */
+public class server {
+    
+}
