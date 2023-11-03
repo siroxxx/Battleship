@@ -18,15 +18,16 @@ public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(777);
         System.out.println("connettendo...");
-        Socket clientSocket = serverSocket.accept(); // Accetta una connessione
         Parser parser=new Parser();
         Boolean fine = false;
         while (fine == false) {
             //ricezione
-            InputStream in = clientSocket.getInputStream();
+            Socket giocatore = serverSocket.accept(); // Accetta una connession
+            InputStream in = giocatore.getInputStream();                                    //il primo campo è il comando il secondo campo è il numero del giocatore
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String mexRicevuto = reader.readLine();                                         //leggiamo il primo campo e in base a cos'è adattiamo, creiamo un metodo per ogni tipo di casistica
-            String comando=parser.estraiComando(mexRicevuto);                               //capiamo di che comando si tratta TODO:lista dei comandi
+            String comando=parser.estraiComando(mexRicevuto);                               //capiamo di che comando si tratta 
+            String numeroGiocatore=parser.estraiGiocatore(mexRicevuto);
             String risposta="";
             switch (comando) {
                 case "ciao":
@@ -34,16 +35,17 @@ public class Server {
                     risposta=s;
                     break;
                 case "sparo":
-                    Map<> m=Parser.parseSparp();                            //esempio
+                    Map<> m=Parser.parseSparo();                            //esempio
                     risposta=s;
                     break;
         
             }
 
             //invio
-            OutputStream out = clientSocket.getOutputStream();
+            OutputStream out = giocatore.getOutputStream();
             PrintWriter writer = new PrintWriter(out, true);
             writer.println(risposta);
+            giocatore.close();
         }
 
         /*
@@ -59,9 +61,5 @@ public class Server {
          * PrintWriter writer = new PrintWriter(out, true);
          * writer.println(risposta);
          */
-
-        // Chiudi la socket del client quando hai finito
-        clientSocket.close();
-    }
-
+}
 }

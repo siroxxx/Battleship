@@ -1,0 +1,16 @@
+C->conferma di entrambi
+O->opzionale
+
+home;
+esci;C
+inizia;C
+spostanave;
+O ruotanave;
+confermanavi;C
+sparo;
+O mina;
+radar;
+bomba;
+speciale;
+cambioturno;
+fine;C
