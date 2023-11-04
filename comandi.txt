@@ -7,7 +7,7 @@ inizia;C
 
 POSIZIONAMENTO:
 spostanave;
- ruotanave;
+ruotanave;
 confermanavi;C
 
 GIOCO:
