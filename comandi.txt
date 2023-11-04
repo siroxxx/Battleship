@@ -1,12 +1,16 @@
 C->conferma di entrambi
 O->opzionale
-
-home;
+INIZIO:
+home; 
 esci;C
 inizia;C
+
+POSIZIONAMENTO:
 spostanave;
-O ruotanave;
+ ruotanave;
 confermanavi;C
+
+GIOCO:
 sparo;
 O mina;
 radar;
