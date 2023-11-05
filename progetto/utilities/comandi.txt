@@ -6,8 +6,8 @@ esci;C
 inizia;C
 
 POSIZIONAMENTO:
-spostanave;
-ruotanave;
+//NO spostanave;
+//NO ruotanave;
 confermanavi;C
 
 GIOCO:
