@@ -71,9 +71,9 @@ public class Server {
                     }
                     break;
                 case "confermanavi":
-                    Integer[] l = estraiCoordinateNavi(); // TODO:vengono estratte le singole coordinate di tutte le navi
+                    Integer[] l = parser.estraiCoordinateNavi(mexRicevuto); // TODO:vengono estratte le singole coordinate di tutte le navi
                     if (numeroGiocatore.equals("1")) {
-                        g1.crea(); // TODO:metodo per creare la griglia
+                        g1.crea(l); 
                         if (!stato2.equals("attacco") && !stato2.equals("difesa")) {
                             int stato = rand.nextInt(0, 2); // randomizzazione attacco o difesa
                             if (stato == 0) {
@@ -90,7 +90,7 @@ public class Server {
                         }
                         
                     } else {
-                        g2.crea(); // TODO:metodo per creare la griglia
+                        g2.crea(l); 
                         if (!stato1.equals("attacco") && !stato1.equals("difesa")) {
                             int stato = rand.nextInt(0, 2); // randomizzazione attacco o difesa
                             if (stato == 0) {
