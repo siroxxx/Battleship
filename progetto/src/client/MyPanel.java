@@ -14,7 +14,7 @@ public class MyPanel extends JPanel  {
     final int PANEL_WIDTH = JMappa.MAXEL_M * WIDTH;
     final int PANEL_HEIGHT = JMappa.MAXEL_M * HEIGHT;
 
-    public MyPanel()  {
+    public MyPanel() {
         this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
     }
@@ -23,7 +23,11 @@ public class MyPanel extends JPanel  {
 
         super.paint(g);
 
-        Graphics2D graphic_2D = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
 
+    }
+
+    private void Start(Graphics2D g2) {
+        
     }
 }
