@@ -1,0 +1,6 @@
+@startuml UseCaseBattleShip
+
+usecase (Server) as UCS
+usecase (Client) as UCC
+
+@enduml
