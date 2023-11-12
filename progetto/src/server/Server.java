@@ -19,6 +19,24 @@ import java.util.Random;
 
 public class Server {
     public static void main(String[] args) throws IOException {
+
+        //FILE DA STRAVOLGERE COMPLETAMENTE, ECCO QUELLO CHE SARA'
+
+        //crea condivisa("giocatore1")
+        //crea condivisa("giocatore2")
+        //crea parser
+        //crea threadsocket[2]
+        //crea threadfase2[2]
+        //crea randomturno
+        //crea threadfase3[2]
+        //start threadsocket[2]
+        //join threadsocket[2]
+        //start threadfase2[2]
+        //join threadfase2[2]
+        //call randomturno
+        //start threadfase3[2]
+        //join threadfase3[2]
+        
         ServerSocket serverSocket = new ServerSocket(Costanti.portaServer); // socket su cui riceviamo i dati
         System.out.println("connettendo...");
         Parser parser = new Parser();

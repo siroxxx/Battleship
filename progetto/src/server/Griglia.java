@@ -23,7 +23,7 @@ public class Griglia { // STATO 0: acqua non colpita | STATO 1: acqua colpita | 
 
     public void crea(Integer[] messaggio)   //mi faccio passare le navi in ordine 
     {
-
+        //TODO:salvare le coordinate in maniera migliore e creare il campo
         for (int i = 0; i < messaggio.length; i++) { //in questo for salvo le coordinate nei vettori delle navi decrementando la i
             if(i<4)
                 nave1[i]=messaggio[i];
@@ -35,5 +35,6 @@ public class Griglia { // STATO 0: acqua non colpita | STATO 1: acqua colpita | 
                 nave4[i-14]=messaggio[i];
             else nave5[i-22]=messaggio[i];
         }
+
     }
 }
