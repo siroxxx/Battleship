@@ -14,8 +14,8 @@ public class Griglia { // STATO 0: acqua non colpita | STATO 1: acqua colpita | 
     public Integer[] nave5 = new Integer[10]; // andranno passate in ordine le navi: 2/2/3/4/5
 
     public Griglia() {
-        for (int i = 0; i < costanti.righe; i++) {
-            for (int j = 0; j < costanti.colonne; j++) {
+        for (int i = 0; i < Costanti.righe; i++) {
+            for (int j = 0; j < Costanti.colonne; j++) {
                 campo[i][j] = 0;
             }
         }

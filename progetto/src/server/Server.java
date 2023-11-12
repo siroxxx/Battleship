@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(costanti.portaServer); // socket su cui riceviamo i dati
+        ServerSocket serverSocket = new ServerSocket(Costanti.portaServer); // socket su cui riceviamo i dati
         System.out.println("connettendo...");
         Parser parser = new Parser();
         Boolean fine = false;
@@ -121,10 +121,10 @@ public class Server {
 
             int port = 0;
             if (numeroGiocatore.equals("1")) {
-                port = costanti.portaClient2; // client2 usa la porta 555
+                port = Costanti.portaClient2; // client2 usa la porta 555
             } else
-                port = costanti.portaClient1; // client1 usa la porta 333
-            giocatore = new Socket(costanti.indirizzoClient, port); // immettere l'indirizzo corretto
+                port = Costanti.portaClient1; // client1 usa la porta 333
+            giocatore = new Socket(Costanti.indirizzoClient, port); // immettere l'indirizzo corretto
 
             switch (comando) {
                 case "esci":
