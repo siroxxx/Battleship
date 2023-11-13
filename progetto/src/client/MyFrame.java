@@ -4,6 +4,7 @@ import java.awt.event.*;
 public class MyFrame extends JFrame implements KeyListener {
 
     MyPanel panel;
+    condivisa cond;
 
     MyFrame() {
 
@@ -12,6 +13,7 @@ public class MyFrame extends JFrame implements KeyListener {
         // this.setLocationRelativeTo(null);
 
         panel = new MyPanel();
+        cond = new condivisa();
 
         this.addKeyListener(this);
 
