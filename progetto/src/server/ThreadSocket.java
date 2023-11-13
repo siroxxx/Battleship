@@ -7,11 +7,9 @@ import java.net.Socket;
 public class ThreadSocket extends Thread{
     Condivisa c;
     Socket s;
-    String nome;
-    public ThreadSocket(String nome, Condivisa cond) throws IOException{
+    public ThreadSocket(Condivisa cond) throws IOException{
         s=new Socket();
         c=cond;
-        this.nome=nome;
     }
     @Override
     public synchronized void start() {

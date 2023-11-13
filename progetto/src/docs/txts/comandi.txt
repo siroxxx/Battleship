@@ -1,0 +1,14 @@
+O->opzionale
+INIZIO:
+l'inizio del gioco avviene con l'accettazione di entrambe le socket tcp
+
+POSIZIONAMENTO:
+confermanavi;
+
+GIOCO:
+sparo;
+O -> mina;
+radar;
+bomba;
+speciale;
+cambioturno;
