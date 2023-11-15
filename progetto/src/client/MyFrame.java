@@ -1,3 +1,4 @@
+package client;
 import javax.swing.JFrame;
 import java.awt.event.*;
 
@@ -12,15 +13,24 @@ public class MyFrame extends JFrame implements KeyListener {
         this.setTitle("Window");
         // this.setLocationRelativeTo(null);
 
-        panel = new MyPanel();
         cond = new condivisa();
+
+        panel = new MyPanel();
+        
 
         this.addKeyListener(this);
 
-        this.add(panel);
-
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setUndecorated(true);
         this.pack();
         this.setVisible(true);
+
+        inizio();
+    }
+
+    private void inizio() {
+        Fase1 f = new Fase1(cond);
+        this.add(f);
     }
 
     @Override

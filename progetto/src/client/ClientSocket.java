@@ -1,12 +1,13 @@
+package client;
 import java.net.*;
 import java.io.*;
 
 //testo di base preso da google
-public class SimpleClient {
+public class ClientSocket {
     public static void main(String[] args) throws IOException {
-        InetAddress addr = InetAddress.getByName(null);
+        InetAddress addr = InetAddress.getByName(Costanti.indirizzo);
         System.out.println("addr = " + addr);
-        Socket socket = new Socket(addr, SimpleServer.PORT);
+        Socket socket = new Socket(addr, Costanti.portaServer);
 
         try {
             System.out.println("socket = " + socket);
