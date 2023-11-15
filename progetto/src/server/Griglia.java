@@ -103,4 +103,21 @@ public class Griglia {
             campo[nave5x[i]][nave5y[i]]=2;
         }
     }
+    public Boolean[] aggiornaGriglia(Integer[]x, Integer[] y){      //metodo generale per l'aggiornamento della griglia 
+
+        Boolean [] risultatiColpi =new Boolean[x.length];   //vettore in cui salvo il/i risultato/i del/dei colpo/i
+        for (int i = 0; i < x.length; i++) {
+            if (campo[x[i]][y[i]]==2) {     //2: stato di nave non colpita
+                campo[x[i]][y[i]]=3;       //passaggio allo stato di nave colpita
+                risultatiColpi[i]=true;     //colpito
+            }
+            else if(campo[x[i]][y[i]]==0){  //0:stato di acqua non colpita
+                risultatiColpi[i]=false;    //non colpito
+            }
+            else {      //generalmente per caselle già colpite
+                risultatiColpi[i]=false;    //non colpito
+            }
+        }
+        return risultatiColpi;
+    }
 }

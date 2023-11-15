@@ -7,15 +7,11 @@ public class Parser {
     public Parser(){
 
     }
-    public String estraiComando(String messaggio){
+    public String[] estraiComando(String messaggio){
         String []buffer=messaggio.split(";");
-        return buffer[0];
+        return buffer;
     }
 
-    public String estraiGiocatore(String messaggio){
-        String []buffer=messaggio.split(";");
-        return buffer[1];
-    }
     public Integer[] estraiCoordinateNavi(String messaggio){    //trasformo il messaggio in un vettore di interi
         String []buffer=messaggio.split(";");
         Integer[] tuttecoord=new Integer[buffer.length];

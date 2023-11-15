@@ -7,7 +7,6 @@ confermanavi;
 
 GIOCO:
 sparo;
-O -> mina;
 radar;
 bomba;
 speciale;

@@ -99,7 +99,7 @@ public class Server {
         //             }
         //             break;
         //         case "confermanavi":
-        //             Integer[] l = parser.estraiCoordinateNavi(mexRicevuto); // TODO:vengono estratte le singole coordinate di tutte le navi
+        //             Integer[] l = parser.estraiCoordinateNavi(mexRicevuto);
         //             if (numeroGiocatore.equals("1")) {
         //                 g1.crea(l); 
         //                 if (!stato2.equals("attacco") && !stato2.equals("difesa")) {
@@ -145,7 +145,6 @@ public class Server {
         //     giocatore.close();
 
         //     // FASE 2:COMUNICAZIONE ALL'ALTRO CLIENT PER ALCUNI COMANDI
-        //     // TODO:if con lista dei comandi che non necessitano di una comunicazione con entrambi i client
 
         //     int port = 0;
         //     if (numeroGiocatore.equals("1")) {
@@ -187,6 +186,7 @@ public class Server {
         //     System.out.println("giocatore 2: " + stato2);
         // }
 
+        
         // /*
         //  * esempio lettura
         //  * 
