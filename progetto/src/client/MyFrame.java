@@ -17,7 +17,6 @@ public class MyFrame extends JFrame implements KeyListener {
 
         panel = new MyPanel();
         
-
         this.addKeyListener(this);
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 

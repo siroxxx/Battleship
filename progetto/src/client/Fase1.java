@@ -14,16 +14,14 @@ public class Fase1 extends MyPanel{
 
     public void paint(Graphics g) {
         super.paint(g);
-
         Graphics2D g2 = (Graphics2D) g;
         
-        disegnaMappa(g2);
+        disegnaMappa(g2, 100);
 
-        int fontSize = 30;
+        int fontSize = cond.FONT;
         Font f = new Font("Berlin Sans FB", Font.BOLD, fontSize);
         g2.setFont(f);
         g2.setColor(Color.BLACK);
-        g2.drawString("INSERISCI LE TUE NAVI:", 100, 100);
+        g2.drawString("INSERISCI LE TUE NAVI:", cond.WIDTH/2, cond.HEIGHT);
     } 
-
 }

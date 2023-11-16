@@ -13,12 +13,13 @@ public class MyPanel extends JPanel{
     public void paint(Graphics g) {
     }
     
-    public void disegnaMappa(Graphics2D g2) {
+    public void disegnaMappa(Graphics2D g2, int gap) {
         g2.setColor(new Color(30,129,176));
+
         for (int a = 0; a < 2; a++) {
             for (int i = 0; i < Costanti.righe; i++) {
                 for (int k = 0; k < Costanti.colonne; k++) {
-                    int initX = ((this.getSize().width - cond.MAP_WIDTH)/2) + (k * cond.WIDTH);
+                    int initX = ((this.getSize().width - cond.MAP_WIDTH)/2) + (k * cond.WIDTH) + gap;
                     int initY = ((this.getSize().height - cond.MAP_HEIGHT)/2) + (i * cond.HEIGHT);
 
                     if (a == 0)
@@ -33,4 +34,13 @@ public class MyPanel extends JPanel{
         }
     }
 
+    public void disegnaNavi(Graphics2D g2) {
+        g2.setColor(Color.RED);
+
+        for (Nave nave : cond.listaNavi.flotta) {
+            for (Coordinata coord : nave.coordinate) {
+                g2.fillRect(coord.X, coord.Y, WIDTH / 2, HEIGHT / 2);                
+            }
+        }
+    }
 }

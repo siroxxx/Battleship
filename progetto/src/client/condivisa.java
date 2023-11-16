@@ -9,6 +9,8 @@ public class condivisa {
     public int HEIGHT;
     public int MAP_WIDTH;
     public int MAP_HEIGHT;
+    public int FONT;
+    public Flotta listaNavi = new Flotta();
 
     public condivisa() {
         //WIDTH : 100 = SIZE : 1920
@@ -20,5 +22,7 @@ public class condivisa {
 
         MAP_WIDTH = WIDTH * Costanti.colonne;
         MAP_HEIGHT = HEIGHT * Costanti.righe;
+
+        FONT = 30 * screenSize.width / 1920;
     }
 }

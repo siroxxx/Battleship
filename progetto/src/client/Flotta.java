@@ -4,22 +4,22 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Flotta {
-    public List<Coordinata[]> flotta = new ArrayList<>(){
-                                                            {Coordinata[] nave1 = new Coordinata[2];}
-                                                            {Coordinata[] nave2 = new Coordinata[2];}
-                                                            {Coordinata[] nave3 = new Coordinata[3];}
-                                                            {Coordinata[] nave4 = new Coordinata[4];}
-                                                            {Coordinata[] nave5 = new Coordinata[5];}
-                                                        };
+    public List<Nave> flotta = new ArrayList<>(){
+                                                    {Nave nave1 = new Nave(2, 1);}
+                                                    {Nave nave2 = new Nave(2, 2);}
+                                                    {Nave nave3 = new Nave(3, 3);}
+                                                    {Nave nave4 = new Nave(4, 4);}
+                                                    {Nave nave5 = new Nave(5, 5);}
+                                                };
+
+    public Flotta() {
+        
+    }
 
     public void setPosizione(List<Coordinata> posizioni) {
-        for (Coordinata[] nave : flotta) {
-            if (nave.length == posizioni.size() && nave[0].X == -1) {
-                for (int i = 0; i < posizioni.size(); i++) {
-                    nave[i].X = posizioni.get(i).X;
-                    nave[i].Y = posizioni.get(i).Y;
-                }
-            }
-        }
+        for (Nave nave : flotta)
+            if (nave.lunghezza == posizioni.size() && !nave.isSet)
+                for (int i = 0; i < posizioni.size(); i++)
+                    nave.coordinate.set(i, posizioni.get(i));
     }
 }
