@@ -1,5 +1,6 @@
 package server;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +22,16 @@ public class Griglia {
     public Integer[] nave4y = new Integer[4];
     public Integer[] nave5x = new Integer[5];
     public Integer[] nave5y = new Integer[5];
+    public Boolean [] statoNavi=new Boolean[5]; //vettore per capire se le navi sono affondate o meno
 
     public Griglia() {
         for (int i = 0; i < Costanti.righe; i++) {  //di base metto gli sapzi come acqua non colpita
             for (int j = 0; j < Costanti.colonne; j++) {
                 campo[i][j] = 0;
             }
+        }
+        for (int i = 0; i < statoNavi.length; i++) {
+            statoNavi[i]=false;
         }
     }
 
@@ -112,6 +117,7 @@ public class Griglia {
                 risultatiColpi[i]=true;     //colpito
             }
             else if(campo[x[i]][y[i]]==0){  //0:stato di acqua non colpita
+                campo[x[i]][y[i]]=1;       //passaggio allo stato di acqua colpita
                 risultatiColpi[i]=false;    //non colpito
             }
             else {      //generalmente per caselle già colpite
@@ -119,5 +125,90 @@ public class Griglia {
             }
         }
         return risultatiColpi;
+    }
+    public Boolean[] spara(Integer[] dati){     //metodo generale che gestisce lo sparo di colpi singoli, bombe e poteri speciali
+        List <Integer> x =new ArrayList<Integer>();
+        List <Integer> y =new ArrayList<Integer>();
+        for (int i = 0; i < x.size(); i++) {
+            if(i%2==0){
+                x.add(dati[i]);
+            }
+            else y.add(dati[i]);
+        }
+
+        return aggiornaGriglia((Integer[])x.toArray(), (Integer[])y.toArray());
+    }
+    public List<String> controllaNavi(){
+        List<String> naviAffondate=new ArrayList<String>();   //lista per le navi affondate, se un campo vale 10 vuol dire che tutte le navi sono state affondate
+        if(statoNavi[0]==false){     //se non ancora affondata
+            Boolean affondata=true;
+            for (int i = 0; i < nave1x.length; i++) {
+                if(campo[nave1x[i]][nave1y[i]]!=3){
+                    affondata=false;
+                }
+            }
+            if(affondata==true){
+                naviAffondate.add("1");
+                statoNavi[0]=true;
+            }
+                
+        }
+        if(statoNavi[1]==false){
+            Boolean affondata=true;
+            for (int i = 0; i < nave1x.length; i++) {
+                if(campo[nave2x[i]][nave2y[i]]!=3){
+                    affondata=false;
+                }
+            }
+            if(affondata==true){
+                naviAffondate.add("2");
+                statoNavi[1]=true;
+            }
+        }
+        if(statoNavi[2]==false){
+            Boolean affondata=true;
+            for (int i = 0; i < nave1x.length; i++) {
+                if(campo[nave3x[i]][nave3y[i]]!=3){
+                    affondata=false;
+                }
+            }
+            if(affondata==true){
+                naviAffondate.add("3");
+                statoNavi[2]=true;
+            }
+        }
+        if(statoNavi[3]==false){
+            Boolean affondata=true;
+            for (int i = 0; i < nave1x.length; i++) {
+                if(campo[nave4x[i]][nave4y[i]]!=3){
+                    affondata=false;
+                }
+            }
+            if(affondata==true){
+                naviAffondate.add("4");
+                statoNavi[3]=true;
+            }
+        }
+        if(statoNavi[4]==false){
+            Boolean affondata=true;
+            for (int i = 0; i < nave1x.length; i++) {
+                if(campo[nave5x[i]][nave5y[i]]!=3){
+                    affondata=false;
+                }
+            }
+            if(affondata==true){
+                naviAffondate.add("5");
+                statoNavi[4]=true;
+            }
+        }
+        Boolean tutteAffondate=true;
+        for (int i = 0; i < statoNavi.length; i++) {
+            if (statoNavi[i]==false) {
+                tutteAffondate=false;
+            }
+        }
+        if(tutteAffondate==true)
+            naviAffondate.add("all");      //10:codice di fine partita
+        return naviAffondate;
     }
 }

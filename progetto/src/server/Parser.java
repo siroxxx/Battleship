@@ -20,4 +20,12 @@ public class Parser {
         }
         return tuttecoord;
     }
+    public Integer[] estraiDati(String[] messaggio){    //trasformo il messaggio in un vettore di interi
+
+        Integer[] dati=new Integer[messaggio.length-1];
+        for (int i = 1; i < messaggio.length; i++) { //estraggo la parte con solo le coordinate senza il comando e il numero giocatore
+            dati[i-1]=Integer.parseInt(messaggio[i]);
+        }
+        return dati;
+    }
 }
