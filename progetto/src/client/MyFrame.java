@@ -1,8 +1,7 @@
 package client;
 import javax.swing.JFrame;
-import java.awt.event.*;
 
-public class MyFrame extends JFrame implements KeyListener {
+public class MyFrame extends JFrame{
 
     MyPanel panel;
     condivisa cond;
@@ -16,11 +15,9 @@ public class MyFrame extends JFrame implements KeyListener {
         cond = new condivisa();
 
         panel = new MyPanel();
-        
-        this.addKeyListener(this);
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
         this.pack();
         this.setVisible(true);
 
@@ -28,25 +25,7 @@ public class MyFrame extends JFrame implements KeyListener {
     }
 
     private void inizio() {
-        Fase1 f = new Fase1(cond);
+        Fase1 f = new Fase1();
         this.add(f);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-
     }
 }

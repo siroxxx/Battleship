@@ -5,9 +5,9 @@ import java.io.*;
 //testo di base preso da google
 public class ClientSocket {
     public static void main(String[] args) throws IOException {
-        InetAddress addr = InetAddress.getByName(Costanti.indirizzo);
+        InetAddress addr = InetAddress.getByName(Costanti.INDIRIZZO);
         System.out.println("addr = " + addr);
-        Socket socket = new Socket(addr, Costanti.portaServer);
+        Socket socket = new Socket(addr, Costanti.PORTA_SERVER);
 
         try {
             System.out.println("socket = " + socket);
