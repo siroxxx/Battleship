@@ -6,17 +6,18 @@ import java.net.Socket;
 
 public class ThreadSocket extends Thread{
     Condivisa c;
+    ThreadUtilities util;
     Socket s;
-    public ThreadSocket(Condivisa cond) throws IOException{
+    public ThreadSocket(ThreadUtilities t, Condivisa c) throws IOException{
         s=new Socket();
-        c=cond;
+        util=t;
+        this.c=c;
     }
     @Override
     public synchronized void start() {
         try {
             s=c.serverSocket.accept();          //creo la socket
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

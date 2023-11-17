@@ -1,22 +1,18 @@
 package server;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 
 public class Condivisa {
-
-    public String nomeGiocatore;
-    public Boolean turno;               //true=attacco | false=difesa 
+    public Boolean turno;       //se true->attacco g1 difesa g2 | se false-> g1 difesa g2 attacco
     public ServerSocket serverSocket;
-    public Griglia griglia;     
-    public Parser parser;
-    public Boolean hoperso;             //se true il giocatore il questione ha perso
-
-    public Condivisa(String nome, ServerSocket s) throws IOException{
-        nomeGiocatore=nome;
+    Integer chiHaPerso; //inizializzato a 0, se è 1 ha perso g1 se è 2 ha perso g2
+    String rispostaDaInoltrare;
+    public Condivisa(ServerSocket s){
         serverSocket=s;
-        griglia=new Griglia();
-        parser=new Parser();
-        hoperso=false;
+        chiHaPerso=0;
+        rispostaDaInoltrare="";
+    }
+    public void cambioturno() {     //cambio del turno
+        turno=!turno;
     }
 }

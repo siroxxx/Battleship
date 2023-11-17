@@ -1,6 +1,5 @@
 package server;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class Griglia {
     // STATO 0: acqua non colpita | STATO 1: acqua colpita
     // STATO 2: nave non colpita | STATO 3: nave colpita
     //salvo le x di una nave in un vettore e le y di una nave in un altro
-    public Integer[][] campo; 
+    public Integer[][] campo=new Integer[Costanti.righe][Costanti.colonne]; 
     public Integer[] nave1x = new Integer[2]; // andranno passate in ordine le navi: 2/2/3/4/5
     public Integer[] nave1y = new Integer[2];
     public Integer[] nave2x = new Integer[2];
@@ -79,16 +78,17 @@ public class Griglia {
             }
         }
         //trasformo le liste in array
-        nave1x = (Integer[]) nave1xtemp.toArray();
-        nave1y = (Integer[]) nave1xtemp.toArray();
-        nave2x = (Integer[]) nave1xtemp.toArray();
-        nave2y = (Integer[]) nave1xtemp.toArray();
-        nave3x = (Integer[]) nave1xtemp.toArray();
-        nave3y = (Integer[]) nave1xtemp.toArray();
-        nave4x = (Integer[]) nave1xtemp.toArray();
-        nave4y = (Integer[]) nave1xtemp.toArray();
-        nave5x = (Integer[]) nave1xtemp.toArray();
-        nave5y = (Integer[]) nave1xtemp.toArray();
+        nave1x = nave1xtemp.toArray(new Integer[nave1x.length]);
+        nave1y = nave1ytemp.toArray(new Integer[nave1x.length]);
+        nave2x = nave2xtemp.toArray(new Integer[nave1x.length]);
+        nave2y = nave2ytemp.toArray(new Integer[nave1x.length]);
+        nave3x = nave3xtemp.toArray(new Integer[nave1x.length]);
+        nave3y = nave3ytemp.toArray(new Integer[nave1x.length]);
+        nave4x = nave4xtemp.toArray(new Integer[nave1x.length]);
+        nave4y = nave4ytemp.toArray(new Integer[nave1x.length]);
+        nave5x = nave5xtemp.toArray(new Integer[nave1x.length]);
+        nave5y = nave5ytemp.toArray(new Integer[nave1x.length]);
+
     }
     public void creacampo() {   //per ogni nave metto lo stato corrispondente della casella nella griglia-> stato 2: nave presente non colpita
 
@@ -210,5 +210,16 @@ public class Griglia {
         if(tutteAffondate==true)
             naviAffondate.add("all");      //10:codice di fine partita
         return naviAffondate;
+    }
+    public Integer radar(Integer x, Integer y){     //gestione radar
+        Integer conteggio=0;
+        for (int i = x-1; i < x+2; i++) {       //questi due for sono per considerare il quadrato 3x3 attorno al 
+            for (int j = y-1; j < y+2; j++) {
+                if(campo[i][j]==2){
+                    conteggio+=1;
+                }
+            }
+        }
+        return conteggio;
     }
 }
