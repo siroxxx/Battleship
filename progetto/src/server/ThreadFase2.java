@@ -16,9 +16,9 @@ public class ThreadFase2 extends Thread {
         c = cond;
         mySocket = t;
     }
-
+    
     @Override
-    public synchronized void start() { // non posso usare i throw perchè sto facendo l'override di un metodo
+    public void run() { // non posso usare i throw perchè sto facendo l'override di un metodo
 
         String mexRicevuto = "";
         InputStream in = new InputStream() { // occorre fare sto casino per farlo funzionare

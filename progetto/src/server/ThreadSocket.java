@@ -14,7 +14,7 @@ public class ThreadSocket extends Thread{
         this.c=c;
     }
     @Override
-    public synchronized void start() {
+    public void run() {
         try {
             s=c.serverSocket.accept();          //creo la socket
         } catch (IOException e) {

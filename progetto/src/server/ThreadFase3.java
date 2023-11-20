@@ -21,9 +21,8 @@ public class ThreadFase3 extends Thread {
         otherSocket = other;
         c = cond;
     }
-
     @Override
-    public synchronized void start() { // non posso usare i throw perchè sto facendo l'override di un metodo
+    public void run() { // non posso usare i throw perchè sto facendo l'override di un metodo
 
         String mexRicevuto = ""; // dichiaro input e output streams fuori dal while spero funzioni
         InputStream in = new InputStream() { // occorre fare sto casino per farlo funzionare
@@ -42,13 +41,50 @@ public class ThreadFase3 extends Thread {
 
         };
         Boolean difesa = null;
-        if (util.nomeGiocatore.equals("giocatore1")) { // la booleana spiegata nella classe condivisa
-            difesa = false;
-        } else
-            difesa = true;
-        while (c.chiHaPerso == 0) {
-            String rispostaPrecedente = ""; // variabile per memorizzare la risposta precedente mandata dal client per
+        String daInviareAlClient = ""; // per dire al client se è in attacco o in difesa
+        
+        if (util.nomeGiocatore.equals("giocatore1")){ // la booleana spiegata nella classe condivisa
+            difesa=false;
+        }
+        else if (util.nomeGiocatore.equals("giocatore2")){
+            difesa=true;
+        }
+        String rispostaPrecedente = ""; // variabile per memorizzare la risposta precedente mandata dal client per
                                             // non fargli mandare più volte la stessa risposta
+        if(c.turno==true){
+            if(util.nomeGiocatore.equals("giocatore1")){
+                daInviareAlClient="attacco;";
+                c.rispostaDaInoltrare="difesa;";
+            }
+            else {
+                daInviareAlClient="difesa;";
+                c.rispostaDaInoltrare="attacco;";
+            }
+            
+        }
+
+        // !!!!!!!!!!!!!!!!!!!!!! TODO:DA DECOMMENTARE, VA COMMENTATA SOLO IN FASE DI TESTING
+        try {
+        out = mySocket.s.getOutputStream();
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+        PrintWriter w = new PrintWriter(out, true);
+
+        w.println(daInviareAlClient); // invio la risposta per far capire al client
+        try{
+        out = otherSocket.s.getOutputStream();
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+        PrintWriter w2 = new PrintWriter(out, true);
+        
+        w2.println(c.rispostaDaInoltrare); // invio la risposta per far capire al client
+        //in che stato deve iniziare
+        c.rispostaDaInoltrare="";
+        System.out.println(c.turno);    //TODO:IMPORTANTE!!!!!!!!!!!!!!!! non so perchè invia due volte il segnale d'attacco e una volta il segnale di difesa
+        while (c.chiHaPerso == 0) { // qua inizia il ciclo generale
+            
             if (c.turno == difesa) { // solo se si è in difesa
                 do { ///////////////////////////////////////////////////////////////////////////////////////////// DIFESA!
                     if (!(rispostaPrecedente.equals(c.rispostaDaInoltrare))) { // se la risposta non è già stata inviata
@@ -63,7 +99,7 @@ public class ThreadFase3 extends Thread {
                         PrintWriter writer = new PrintWriter(out, true);
                         writer.println(rispostaPrecedente); // invio la risposta
                     }
-                } while ((!(c.rispostaDaInoltrare.equals("cambio;"))) || c.chiHaPerso == 0); // resta in difesa se non
+                } while ((!(c.rispostaDaInoltrare.equals("cambio;"))) && c.chiHaPerso == 0); // resta in difesa se non
                                                                                              // c'è cambio turno o se
                                                                                              // nessuno ha vinto
                 ///////////////////////////////////////////////////////////////////////////////////////////// DIFESA!
@@ -107,12 +143,14 @@ public class ThreadFase3 extends Thread {
                 case "cambioturno":
                     c.cambioturno(); // cambio del turno
                     risposta = "cambio;";
+                    System.out.println("cambio turno");
+                    System.out.println(c.turno);
                     break;
             }
             if (sparo == true) {
                 risposta += "spari;";
                 for (int index = 0; index < risultatiSpari.length; index++) { // per salvarmmi i risultati degli spari
-                    risposta += risultatiSpari[index]; // speriamo passi correttamente true o false
+                    risposta += risultatiSpari[index]+";"; // speriamo passi correttamente true o false     //TODO:c'è un problema da sistemare qui
                 }
                 List<String> naviAffondate = util.griglia.controllaNavi();
                 if (naviAffondate.size() > 0) {
@@ -122,7 +160,7 @@ public class ThreadFase3 extends Thread {
                         risposta += "tutte;"; // separo l'invio degli spazi colpiti dalle eventuali navi affondate con
                                               // uno
                                               // '/'
-                        if (util.nomeGiocatore.equals("giocatore1")) {  // metto chi ha perso!!!!!!!!!!!!!!!
+                        if (util.nomeGiocatore.equals("giocatore1")) { // metto chi ha perso!!!!!!!!!!!!!!!
                             c.chiHaPerso = 1;
                         } else
                             c.chiHaPerso = 2;

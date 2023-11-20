@@ -38,6 +38,10 @@ public class Server {
         for (ThreadFase2 tf2 : fasi2) {
             tf2.join();
         }
+        Griglia temp=new Griglia();
+        temp=utilities[1].griglia;                  //per invertire le griglie
+        utilities[1].griglia=utilities[0].griglia;  //per invertire le griglie
+        utilities[0].griglia=temp;                  //per invertire le griglie
         System.out.println("let's start!");
         randomTurno.impostaTurni();
         for (ThreadFase3 tf3 : fasi3) {
