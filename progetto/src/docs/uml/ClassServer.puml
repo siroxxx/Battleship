@@ -1,0 +1,124 @@
+@startuml ClassServer
+/' abstract class "abstract class"
+annotation annotation
+circle circle
+'() circle_short_form
+class class
+class class_stereo <<stereotype>>
+diamond diamond
+'<> diamond_short_form
+entity entity
+enum enum
+'exception Exception
+interface Interface
+'metaclass Metaclass
+protocol protocol
+'stereotype Stereotype
+struct struct
+
+' relazioni tra classi
+
+Class01 <|-- Class02
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 -- Class10
+
+'
+
+Class01 "1" *-- "many" Class02 : contains
+Class03 o-- Class04 : aggregation
+Class05 --> "1" Class06 '/
+package Server{
+
+class Server {
+-ServerSocket
+-Condivisa
+-ThreadUtilities[2]
+-ThreadSocket[2]
+-ThreadFase2[2]
+-RandomTurno
+-ThreadFase3[2]
++main()
+}
+
+class Parser {
++parser()
++estraiComando()
++estraicoordinateNavi()
+}
+
+class ThreadUtilities {
+-NomeGiocatore
+-Griglia
+-Parser
++ThreadUtilities()
+}
+class Condivisa{
+-Turno
+-ServerSocket
+-ChiHaPerso{Boolean}
+-RispostaDaInoltrare
++Condivisa()
+}
+
+class Costanti {
+-PortaServer
+-Colonne
+-Righe
+}
+
+class Griglia{
+-Campo[][]
+-navex[] {5 navi}
+-navey[] {5 navi}
++griglia()
++crea()
++creaNavi()
++creaCampo()
+}
+class RandomTurno {
+-Condivisa1
+-Condivisa2
+-Random
++randomTurno()
++impostaTurni()
+}
+class ThreadSocket {
+-Condivisa
+-Socket
++threadSocket()
++run()
+}
+class ThreadFase2 {
+-Condivisa
+-ThreadSocket
++ThreadFase2()
++run()
+}
+class ThreadFase3 {
+-Condivisa
+-MySocket
+-OtherSocket
++ThreadFase3()
++run()
+}
+Server--ThreadSocket
+Server--ThreadFase2
+Server--ThreadFase3
+RandomTurno--Server
+Condivisa--RandomTurno
+Costanti--Server
+ThreadUtilities--ThreadSocket
+ThreadUtilities--ThreadFase2
+Condivisa--ThreadFase3
+ThreadUtilities--ThreadFase3
+Griglia--ThreadUtilities
+Parser--ThreadUtilities
+ThreadSocket--ThreadFase2
+ThreadSocket--ThreadFase3
+Condivisa--Server
+ThreadSocket--Server
+Costanti--Griglia
+}
+@enduml

@@ -1,0 +1,42 @@
+@startuml SQNC
+
+' PARAMS
+
+skinparam sequenceMessageAlign right
+autonumber
+
+Client1 -> Server : Richiesta di connessione
+Server -> Client1 : Richiesta accettata
+Client2 -> Server : Invio griglia
+Client1 -> Server : Invio griglia
+Server -> Client1 : Comunicazione stato di attacco
+Server -> Client2 : Comunicazione stato di difesa
+Client1 -> Server : Sparo 4;3
+Server -> Client1 : Colpo mancato
+Server -> Client2 : Colpo mancato dall'avversario in 4;3
+Client1 -> Server : Fine Turno
+Server -> Client1 : Comunicazione stato di difesa
+Server -> Client2 : Comunicazione stato di attacco
+Client2 -> Server : Sparo 7;1
+Server -> Client2 : Bersaglio colpito
+Server -> Client1 : Bersaglio colpito dall'avversario in 7;1
+Client2 -> Server : Sparo 6;1
+Server -> Client2 : Nave affondata
+Server -> Client1 : Nave affondata dall'avversario in 6;1
+Client2 -> Server : Sparo 2;3
+Server -> Client2 : Colpo mancato
+Server -> Client1 : Colpo mancato dall'avversario in 2;3
+Client2 -> Server : Fine Turno
+Server -> Client1 : Comunicazione stato di attacco
+Server -> Client2 : Comunicazione stato di difesa
+Client1 -> Server : Radar 4;3
+Server -> Client1 : Intorno a 4;3 ci sono 3 pezzi di nave
+Server -> Client2 : Il nemico ha piazzato un radar in 4;3
+Client1 -> Server : Bomba 7;1
+Server -> Client2 : Bersaglii colpiti 5;3 / 5;4
+Server -> Client1 : Bersagli colpito dall'avversario in 5;3 / 5;4
+Client1 -> Server : Sparo 5;5
+Server -> Client2 : Colpo mancato
+Server -> Client1 : Colpo mancato dall'avversario in 5;5
+Client1 -> Server : Fine Turno
+@enduml
