@@ -41,7 +41,7 @@ public class MyPanel extends JPanel implements MouseInputListener{
 
     //mettere switch-case in base alla rotazione della nave
     public void disegnaNavi(Graphics2D g2) {
-        g2.setColor(Color.GREEN);
+        g2.setColor(Color.GRAY);
 
         //Random rand = new Random();
         for (Nave nave : cond.listaNavi.flotta) {
