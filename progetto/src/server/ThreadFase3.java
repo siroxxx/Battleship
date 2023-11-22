@@ -150,7 +150,7 @@ public class ThreadFase3 extends Thread {
                 }
                 List<String> naviAffondate = util.griglia.controllaNavi();
                 if (naviAffondate.size() > 0) {
-                    risposta += "/affondate;"; // TODO:FARE NEL CLIENT UNO SPLIT CON '/' PER VEDERE SE C'è QUALCHE NAVE
+                    risposta += "/"; // sta ad indicare che ci sono navi affondate
                     // AFFONDATA
                     if (naviAffondate.contains("all")) { // codice per dire che tutte le
                         risposta += "tutte;"; // separo l'invio degli spazi colpiti dalle eventuali navi affondate con '/'
