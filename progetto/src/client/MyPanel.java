@@ -1,17 +1,20 @@
 package client;
+
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
-public class MyPanel extends JPanel implements MouseInputListener{
-    condivisa cond = new condivisa();
-    
+public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
+    Condivisa cond = new Condivisa();
+
     public MyPanel() {
         this.setBackground(Color.WHITE);
         this.addMouseListener(this);
+        this.addKeyListener(this);
         this.addMouseMotionListener(this);
     }
 
@@ -19,9 +22,9 @@ public class MyPanel extends JPanel implements MouseInputListener{
         super.paintComponent(g);
 
     }
-    
+
     public void disegnaMappa(Graphics2D g2, int gap) {
-        g2.setColor(new Color(30,129,176));
+        g2.setColor(new Color(30, 129, 176));
 
         for (int a = 0; a < 2; a++) {
             for (int i = 0; i < Costanti.RIGHE; i++) {
@@ -41,23 +44,17 @@ public class MyPanel extends JPanel implements MouseInputListener{
         }
     }
 
-    //mettere switch-case in base alla rotazione della nave
+    // mettere switch-case in base alla rotazione della nave
     public void disegnaNavi(Graphics2D g2) {
-        g2.setColor(Color.GRAY);
-
-        //Random rand = new Random();
-        for (Nave nave : cond.listaNavi.flotta) {
+        for (Nave nave : Condivisa.listaNavi.flotta) {
             for (int i = 0; i < nave.lunghezza; i++) {
-                /*float r = rand.nextFloat();
-                float g = rand.nextFloat();
-                float b = rand.nextFloat();
-                Color randomColor = new Color(r, g, b);
-                g2.setColor(randomColor);*/
                 g2.setColor(Color.GRAY);
-                g2.fillRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y, (i == nave.lunghezza - 1 ? Costanti.SHIP_WIDTH : Costanti.WIDTH), Costanti.SHIP_HEIGHT);
-                
+                g2.fillRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y,
+                        (i == nave.lunghezza - 1 ? Costanti.SHIP_WIDTH : Costanti.WIDTH), Costanti.SHIP_HEIGHT);
+
                 g2.setColor(Color.BLACK);
-                g2.drawRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y, (i == nave.lunghezza - 1 ? Costanti.SHIP_WIDTH : Costanti.WIDTH), Costanti.SHIP_HEIGHT);
+                g2.drawRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y,
+                        (i == nave.lunghezza - 1 ? Costanti.SHIP_WIDTH : Costanti.WIDTH), Costanti.SHIP_HEIGHT);
             }
         }
     }
@@ -89,5 +86,17 @@ public class MyPanel extends JPanel implements MouseInputListener{
 
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }
