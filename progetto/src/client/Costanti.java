@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 public class Costanti {
@@ -12,7 +13,12 @@ public class Costanti {
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int WIDTH = 100 * screenSize.width / 1920;         //WIDTH : 100 = SIZE : 1920
     public static final int HEIGHT = 100 * screenSize.height / 1080;       //WIDTH = 100 * SIZE / 1920
-    public static final int MAP_WIDTH = WIDTH * Costanti.COLONNE;
-    public static final int MAP_HEIGHT = HEIGHT * Costanti.RIGHE;
+    public static final int MAP_WIDTH = WIDTH * COLONNE;
+    public static final int MAP_HEIGHT = HEIGHT * RIGHE;
+    public static final int MAP_X = ((screenSize.width - MAP_WIDTH)/2);
+    public static final int MAP_Y = ((screenSize.height - MAP_HEIGHT)/2);
     public static final int FONT = 30 * screenSize.width / 1920;
+    public static final int SHIP_WIDTH = WIDTH;
+    public static final int SHIP_HEIGHT = HEIGHT;
+    public static final Rectangle MAP = new Rectangle(MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
 }

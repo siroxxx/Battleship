@@ -15,12 +15,27 @@ public class Nave {
         this.lunghezza = lunghezza;
         numero = n;
         
-        resettaNave(n);
+        for (int i = 0; i < lunghezza; i++)
+            coordinate.add(new Point());
+
+        resettaNave();
     }
 
-    public void resettaNave(int nave) {
+    public Nave(Nave nave) {
+        coordinate = new ArrayList<>();
+
+        for (Point p : nave.coordinate)
+            coordinate.add(new Point(p));
+
+        lunghezza = nave.lunghezza;
+        isSet = nave.isSet;
+        rotazione = nave.rotazione;
+        numero = nave.numero;
+    }
+
+    public void resettaNave() {
         for (int i = 0; i < this.lunghezza; i++) {
-            coordinate.add(new Point(Costanti.WIDTH / 2 + Costanti.WIDTH * i, Costanti.HEIGHT * 2 + Costanti.HEIGHT * nave));
+            coordinate.set(i, new Point(Costanti.WIDTH / 2 + Costanti.WIDTH * i, Costanti.HEIGHT * 2 + Costanti.HEIGHT * numero + numero * 10));
         }
     }
 

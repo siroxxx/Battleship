@@ -15,7 +15,9 @@ public class MyPanel extends JPanel implements MouseInputListener{
         this.addMouseMotionListener(this);
     }
 
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
     }
     
     public void disegnaMappa(Graphics2D g2, int gap) {
@@ -24,8 +26,8 @@ public class MyPanel extends JPanel implements MouseInputListener{
         for (int a = 0; a < 2; a++) {
             for (int i = 0; i < Costanti.RIGHE; i++) {
                 for (int k = 0; k < Costanti.COLONNE; k++) {
-                    int initX = ((this.getSize().width - Costanti.MAP_WIDTH)/2) + (k * Costanti.WIDTH) + gap;
-                    int initY = ((this.getSize().height - Costanti.MAP_HEIGHT)/2) + (i * Costanti.HEIGHT);
+                    int initX = Costanti.MAP_X + (k * Costanti.WIDTH) + gap;
+                    int initY = Costanti.MAP_Y + (i * Costanti.HEIGHT);
 
                     if (a == 0)
                         g2.fillRect(initX, initY, Costanti.WIDTH, Costanti.HEIGHT);
@@ -51,7 +53,11 @@ public class MyPanel extends JPanel implements MouseInputListener{
                 float b = rand.nextFloat();
                 Color randomColor = new Color(r, g, b);
                 g2.setColor(randomColor);*/
-                g2.fillRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y, (i == nave.lunghezza - 1 ? Costanti.WIDTH / 4 * 3 : Costanti.WIDTH), Costanti.HEIGHT / 4 * 3);
+                g2.setColor(Color.GRAY);
+                g2.fillRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y, (i == nave.lunghezza - 1 ? Costanti.SHIP_WIDTH : Costanti.WIDTH), Costanti.SHIP_HEIGHT);
+                
+                g2.setColor(Color.BLACK);
+                g2.drawRect(nave.coordinate.get(i).x, nave.coordinate.get(i).y, (i == nave.lunghezza - 1 ? Costanti.SHIP_WIDTH : Costanti.WIDTH), Costanti.SHIP_HEIGHT);
             }
         }
     }
