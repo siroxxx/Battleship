@@ -5,8 +5,13 @@ import java.io.*;
 
 //testo di base preso da google
 public class ClientSocket {
-    public static void main(String[] args) throws IOException { // da trasformare in un metodo da mettere nel main,
-                                                                // oppure cancellare l'altro main
+    public MyFrame frame;
+    public ClientSocket(MyFrame f){
+        frame=f;
+    }
+
+    public void gioca() throws IOException { // da trasformare in un metodo da mettere nel main,
+                                             // oppure cancellare l'altro main
         Parser p = new Parser();
         Socket socket = new Socket(InetAddress.getByName(Costanti.INDIRIZZO), Costanti.PORTA_SERVER);
         InputStream in = socket.getInputStream();
@@ -34,15 +39,15 @@ public class ClientSocket {
                 if (statoPrecedente != statoAttuale) { // se è cambiato lo stato cambia schermata
                     cambiaSchermata();// TODO:collegamento ad un metodo che cambia schermata
                 }
-                statoPrecedente=true;
+                statoPrecedente = true;
                 daInviare = "";// TODO:collegare il payload da inviare al server
                 writer.write(daInviare); // invio il comando
                 risposta = reader.readLine();
                 String comando = p.parseComando(risposta);
                 String[] payload = p.parsePayload(risposta);
-                String naviAff=null;
-                if(risposta.contains("/")){
-                    naviAff=p.getNaviAffondate(risposta);
+                String naviAff = null;
+                if (risposta.contains("/")) {
+                    naviAff = p.getNaviAffondate(risposta);
                 }
                 Boolean[] risultatiSpari = null;
                 String[] naviAffondate = null;
@@ -76,13 +81,13 @@ public class ClientSocket {
                 if (statoPrecedente != statoAttuale) { // se è cambiato lo stato cambia schermata
                     cambiaSchermata();// TODO:collegamento ad un metodo che cambia schermata
                 }
-                statoPrecedente=false;
+                statoPrecedente = false;
                 risposta = reader.readLine();
                 String comando = p.parseComando(risposta);
-                String[] payload = p.parsePayload(risposta);    //ritorna risSpari e risRadar
-                String naviAff=null;
-                if(risposta.contains("/")){
-                    naviAff=p.getNaviAffondate(risposta);
+                String[] payload = p.parsePayload(risposta); // ritorna risSpari e risRadar
+                String naviAff = null;
+                if (risposta.contains("/")) {
+                    naviAff = p.getNaviAffondate(risposta);
                 }
                 Boolean[] risultatiSpari = null;
                 String[] naviAffondate = null;
@@ -90,7 +95,7 @@ public class ClientSocket {
                 switch (comando) {
                     case "spari":
                         risultatiSpari = p.parseSpari(payload);
-                        if(!naviAff.equals(null)) 
+                        if (!naviAff.equals(null))
                             naviAffondate = p.parseNaviAffondate(naviAff);
                         break;
                     case "radar":
@@ -100,7 +105,7 @@ public class ClientSocket {
                         statoAttuale = true; // metto in attacco
                         break;
                 }
-                
+
                 aggiornaGrafica(true, risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
                                                                                      // aggiorna grafica a cui potrei
                                                                                      // passare stato di attacco o
