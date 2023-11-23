@@ -1,5 +1,6 @@
 package client;
 
+// thread che attende che 'Condivisa.stato' diventi -1 e continua l'esecuzione di 'MyFrame.java'
 public class AspettaFine extends Thread {
     public AspettaFine() {
 
@@ -8,10 +9,15 @@ public class AspettaFine extends Thread {
     @Override
     public void run() {
         while (Condivisa.stato != -1) {
-            // Il thread è in attesa che Condivisa.stato diventi -1
+
+            try {
+                sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        // Quando Condivisa.stato diventa -1, interrompe il thread
-        MyFrame.fase1.add(new FaseAttacco());
+
+        MyFrame.fasePrep.add(new FaseAttDif());
         interrupt();
     }
 }

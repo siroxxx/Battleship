@@ -1,19 +1,22 @@
 package client;
 
 import java.util.List;
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
+// classe della nave
 public class Nave {
-    List<Point> coordinate = new ArrayList<Point>();
-    int lunghezza;
-    boolean isSet = false;
+    List<Point> coordinate = new ArrayList<Point>(); // le coordinate sono una lista di oggetti 'Point'
+    int lunghezza; // indica la lunghezza della lista
+    boolean isSet = false; // indica se la nave è stat poszionata sulla mappa
     int rotazione; // 1: verso destra; -2: verso il basso; -1: verso sinistra; 2: verso l'alto
-    int numero;
+    int id; // è l'id della nave
+    Color colore; // il colore della nave
 
     public Nave(int lunghezza, int n) {
         this.lunghezza = lunghezza;
-        numero = n;
+        id = n;
         rotazione = 1;
 
         for (int i = 0; i < lunghezza; i++)
@@ -31,19 +34,22 @@ public class Nave {
         lunghezza = nave.lunghezza;
         isSet = nave.isSet;
         rotazione = nave.rotazione;
-        numero = nave.numero;
+        id = nave.id;
+        colore = nave.colore;
     }
 
+    // le coordinate della nave vengono settate alla loro posizione di base
     public void resettaNave() {
         for (int i = 0; i < this.lunghezza; i++) {
             coordinate.set(i, new Point(Costanti.WIDTH / 2 + Costanti.WIDTH * i,
-                    Costanti.HEIGHT * 2 + Costanti.HEIGHT * numero + numero * 10));
+                    Costanti.HEIGHT * 2 + Costanti.HEIGHT * id + id * 10));
         }
         isSet = false;
         rotazione = 1;
     }
 
-    // left: -1; right: 1
+    // ruota la nave a sinistra o a destra
+    // direzione: sinistra = -1; destra = 1
     public void ruotaNave(int direzione) {
         List<Point> copiaCoord = new ArrayList<>();
 
