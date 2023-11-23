@@ -57,8 +57,6 @@ public class ThreadFase3 extends Thread {
                 c.rispostaDaInoltrare = "attacco;";
             }
         }
-
-        // !!!!!!!!!!!!!!!!!!!!!! TODO:DA DECOMMENTARE, VA COMMENTATA SOLO IN FASE DI TESTING
         try {
             out = mySocket.s.getOutputStream();
         } catch (IOException e) {

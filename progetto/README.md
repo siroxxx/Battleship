@@ -1,8 +1,6 @@
-# File documentale del progetto
+# Progetto organizzato in diverse cartelle (dentro alla cartella src):
 
-### Battleship - Sciacca X Siorni
-- Best game EUW - battaglia navale con poteri speciali
-- Nel file denominato WBS si ha una panoramica completa dello sviluppo del codice
+1. client: tutto ciò relativo al client, comunicazione e grafica compresa
+2. server: tutto ciò che riguarda il server, quindi gestione dei messaggi e comunicazione
+3. docs: documentazione del codice e del progetto, contiene UML, powerpoint, un txt dei comandi e un file con la WBS del codice
 
-1. item
-2. item
