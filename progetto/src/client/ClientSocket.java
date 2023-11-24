@@ -1,122 +1,121 @@
 package client;
 
 import java.net.*;
+import java.util.List;
+import java.awt.Point;
 import java.io.*;
 
 //testo di base preso da google
 public class ClientSocket {
     public MyFrame frame;
-    public ClientSocket(MyFrame f){
-        frame=f;
+    Parser p;
+    Socket socket;
+    InputStream in;
+    BufferedReader reader;
+    PrintWriter writer;
+    OutputStream out;
+
+    public ClientSocket(MyFrame f) throws IOException {
+        frame = f;
+        p = new Parser();
+        socket = new Socket(InetAddress.getByName(Costanti.INDIRIZZO), Costanti.PORTA_SERVER);
+        in = socket.getInputStream();
+        reader = new BufferedReader(new InputStreamReader(in));
+        out = socket.getOutputStream();
+        writer = new PrintWriter(out, true);
     }
 
-    public void gioca() throws IOException { // da trasformare in un metodo da mettere nel main,
-                                             // oppure cancellare l'altro main
-        Parser p = new Parser();
-        Socket socket = new Socket(InetAddress.getByName(Costanti.INDIRIZZO), Costanti.PORTA_SERVER);
-        InputStream in = socket.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        OutputStream out = socket.getOutputStream();
-        PrintWriter writer = new PrintWriter(out, true);
-        System.out.println("connesso");
+    public void aspettaMessaggio() throws IOException {
+        Flotta f = condivisa.listaNavi;// PASSARE COORDINATE NAVI
+        writer.println(p.parseCoordinate(f));
+        System.out.println(reader.readLine()); // messaggio di creazione con successo della griglia
+        String risposta = reader.readLine(); // messaggio di attacco o difesa
+        System.out.println(risposta);
+        if (risposta.equals("attacco;")) {
+            condivisa.stato = 1;
+        } else
+            condivisa.stato = 2;
+    }
+
+    public Boolean azione(String comandoNuovo, List<Point> payloadNuovo) throws IOException { // da trasformare in un
+                                                                                              // metodo
+        // da mettere nel main,
+        // oppure cancellare l'altro main
+        System.out.println("azione: " + comandoNuovo);
         String risposta = "";
         String daInviare = "";
-        Flotta f = f1.getCoordinateNavi();//PASSARE COORDINATE NAVI
-        writer.println(p.parseCoordinate(f));
-        risposta = reader.readLine(); // risposta della creazione della griglia
-        System.out.println(risposta); // messaggio di conferma della griglia
-        risposta = reader.readLine(); // messaggio di attacco o difesa
-        Boolean statoAttuale = null;
-        if (risposta.equals("attacco")) {
-            statoAttuale = true;
-        } else
-            statoAttuale = false; // difesa
-        Boolean fine = false;
-        Boolean statoPrecedente = null; // per il cambio schermata
-        do { // devo
-            if (statoAttuale == true) { // TODO: collegare la variabile che simboleggia attacco e difesa
-                if (statoPrecedente != statoAttuale) { // se è cambiato lo stato cambia schermata
-                    
-                }
-                statoPrecedente = true;
-                daInviare = "";// TODO:collegare il payload da inviare al server
-                writer.write(daInviare); // invio il comando
-                risposta = reader.readLine();
-                String comando = p.parseComando(risposta);
-                String[] payload = p.parsePayload(risposta);
-                String naviAff = null;
-                if (risposta.contains("/")) {
-                    naviAff = p.getNaviAffondate(risposta);
-                }
-                Boolean[] risultatiSpari = null;
-                String[] naviAffondate = null;
-                Integer risRadar = null;
-                switch (comando) {
-                    case "spari":
-                        risultatiSpari = p.parseSpari(payload);
+
+        Boolean fine = null;
+
+        if (condivisa.stato == 1) {
+            daInviare = p.parseInvio(comandoNuovo, payloadNuovo);
+            System.out.println(daInviare);
+            writer.println(daInviare); // invio il comando
+            risposta = reader.readLine();
+            String comando = p.parseComando(risposta);
+            String[] payload = p.parsePayload(risposta);
+            String naviAff = null;
+            System.out.println(risposta);
+            if (risposta.contains("/")) {
+                naviAff = p.getNaviAffondate(risposta);
+            }
+            Boolean[] risultatiSpari = null;
+            String[] naviAffondate = null;
+            Integer risRadar = null;
+            switch (comando) {
+                case "spari":
+                    risultatiSpari = p.parseSpari(payload);
+
+                    if (naviAff != null)
                         naviAffondate = p.parseNaviAffondate(naviAff);
-                        break;
-                    case "radar":
-                        risRadar = p.parseRadar(payload);
-                        break;
-                    case "cambio":
-                        statoAttuale = false; // metto in difesa
-                        break;
-                }
+
+                    if (risultatiSpari[0] == false)
+                        condivisa.stato = 2;
+                    break;
+                case "radar":
+                    risRadar = p.parseRadar(payload);
+                    break;
+            }
+            if (naviAffondate != null)
                 if (naviAffondate.length > 0 && naviAffondate[0].equals("tutte")) { // parola "tutte" per dire che tutte
                                                                                     // le navi sono state affondate
                     fine = true;
                 }
-                MyFrame.faseAtt.getRisultati(risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
-                                                                                     // aggiorna grafica a cui potrei
-                                                                                     // passare stato di attacco o
-                                                                                     // difesa e tutti i possibili
-                                                                                     // output più la variabile per
-                                                                                     // determinare la fine, verificando
-                                                                                     // in quel metodo quali output sono
-                                                                                     // null e quali no,
+            MyFrame.faseAttDif.setRisultati(risultatiSpari, naviAffondate, risRadar, fine, null);// metodo per passare i
+            // risultati
 
-            } else { // se si è in difesa
-                if (statoPrecedente != statoAttuale) { // se è cambiato lo stato cambia schermata
-                    condivisa.stato = 2;
-                }
-                statoPrecedente = false;
-                risposta = reader.readLine();
-                String comando = p.parseComando(risposta);
-                String[] payload = p.parsePayload(risposta); // ritorna risSpari e risRadar
-                String naviAff = null;
-                if (risposta.contains("/")) {
-                    naviAff = p.getNaviAffondate(risposta);
-                }
-                Boolean[] risultatiSpari = null;
-                String[] naviAffondate = null;
-                Integer risRadar = null;
-                switch (comando) {
-                    case "spari":
-                        risultatiSpari = p.parseSpari(payload);
-                        if (!naviAff.equals(null))
-                            naviAffondate = p.parseNaviAffondate(naviAff);
-                        break;
-                    case "radar":
-                        risRadar = p.parseRadar(payload);
-                        break;
-                    case "cambio":
-                        statoAttuale = true; // metto in attacco
-                        break;
-                }
-
-                MyFrame.faseAtt.getRisultati(risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
-                                                                                     // aggiorna grafica a cui potrei
-                                                                                     // passare stato di attacco o
-                                                                                     // difesa e tutti i possibili
-                                                                                     // output più la variabile per
-                                                                                     // determinare la fine, verificando
-                                                                                     // in quel metodo quali output sono
-                                                                                     // null e quali no,
-
+        } else { // se si è in difesa
+            risposta = reader.readLine();
+            String comando = p.parseComando(risposta);
+            System.out.println(risposta);
+            String[] payload = p.parsePayloadDifesa(risposta); // ritorna risSpari e risRadar
+            List<Point> listaPunti = p.getCoordinateDifesa(risposta);
+            Boolean[] risultatiSpari = null;
+            String[] naviAffondate = null;
+            Integer risRadar = null;
+            switch (comando) {
+                case "sparo":
+                case "bomba":
+                case "aereo":
+                    risultatiSpari = p.parseSpari(payload);
+                    naviAffondate = p.getNaviAffDifesa(risposta);
+                    if (comando.equals("sparo") && !risultatiSpari[0])
+                        condivisa.stato = 1;
+                    break;
+                case "radar":
+                    risRadar = null; // numero fittizio dato che non serve alla difesa
+                    break;
             }
-            statoPrecedente = statoAttuale;
-        } while (fine == false);
+            if (naviAffondate != null)
+                if (naviAffondate.length > 0 && naviAffondate[0].equals("tutte")) { // parola "tutte" per dire che tutte
+                                                                                    // le navi sono state affondate
+                    fine = false;
+                }
+            MyFrame.faseAttDif.setRisultati(risultatiSpari, naviAffondate, risRadar, fine, listaPunti);// metodo per
+                                                                                                       // passare i
+            // risultati
 
+        }
+        return fine;
     }
 }

@@ -143,9 +143,10 @@ public class Griglia {
         return aggiornaGriglia(x.toArray(new Integer[x.size()]), y.toArray(new Integer[y.size()]));
     }
 
-    public List<String> controllaNavi() {
-        List<String> naviAffondate = new ArrayList<String>(); // lista per le navi affondate, se un campo vale 10 vuol
-                                                              // dire che tutte le navi sono state affondate
+    public List<String[]> controllaNavi() {
+        List<String[]> naviAffondate = new ArrayList<String[]>(); // lista per le navi affondate, se un campo vale 10
+                                                                  // vuol
+        // dire che tutte le navi sono state affondate
         if (statoNavi[0] == false) { // se non ancora affondata
             Boolean affondata = true;
             for (int i = 0; i < nave1x.length; i++) {
@@ -154,56 +155,86 @@ public class Griglia {
                 }
             }
             if (affondata == true) {
-                naviAffondate.add("1");
+                String[] temp = new String[2];
+
+                for (int i = 0; i < 2; i++) {
+                    temp[i] = nave1x[i].toString() + "," + nave1y[i].toString();
+                }
+
+                naviAffondate.add(temp);
                 statoNavi[0] = true;
             }
 
         }
         if (statoNavi[1] == false) {
             Boolean affondata = true;
-            for (int i = 0; i < nave1x.length; i++) {
+            for (int i = 0; i < nave2x.length; i++) {
                 if (campo[nave2x[i]][nave2y[i]] != 3) {
                     affondata = false;
                 }
             }
             if (affondata == true) {
-                naviAffondate.add("2");
+                String[] temp = new String[2];
+
+                for (int i = 0; i < 2; i++) {
+                    temp[i] = nave2x[i].toString() + "," + nave2y[i].toString();
+                }
+
+                naviAffondate.add(temp);
                 statoNavi[1] = true;
             }
         }
         if (statoNavi[2] == false) {
             Boolean affondata = true;
-            for (int i = 0; i < nave1x.length; i++) {
+            for (int i = 0; i < nave3x.length; i++) {
                 if (campo[nave3x[i]][nave3y[i]] != 3) {
                     affondata = false;
                 }
             }
             if (affondata == true) {
-                naviAffondate.add("3");
+                String[] temp = new String[3];
+
+                for (int i = 0; i < 3; i++) {
+                    temp[i] = nave3x[i].toString() + "," + nave3y[i].toString();
+                }
+
+                naviAffondate.add(temp);
                 statoNavi[2] = true;
             }
         }
         if (statoNavi[3] == false) {
             Boolean affondata = true;
-            for (int i = 0; i < nave1x.length; i++) {
+            for (int i = 0; i < nave4x.length; i++) {
                 if (campo[nave4x[i]][nave4y[i]] != 3) {
                     affondata = false;
                 }
             }
             if (affondata == true) {
-                naviAffondate.add("4");
+                String[] temp = new String[4];
+
+                for (int i = 0; i < 4; i++) {
+                    temp[i] = nave4x[i].toString() + "," + nave4y[i].toString();
+                }
+
+                naviAffondate.add(temp);
                 statoNavi[3] = true;
             }
         }
         if (statoNavi[4] == false) {
             Boolean affondata = true;
-            for (int i = 0; i < nave1x.length; i++) {
+            for (int i = 0; i < nave5x.length; i++) {
                 if (campo[nave5x[i]][nave5y[i]] != 3) {
                     affondata = false;
                 }
             }
             if (affondata == true) {
-                naviAffondate.add("5");
+                String[] temp = new String[5];
+
+                for (int i = 0; i < 5; i++) {
+                    temp[i] = nave5x[i].toString() + "," + nave5y[i].toString();
+                }
+
+                naviAffondate.add(temp);
                 statoNavi[4] = true;
             }
         }
@@ -211,10 +242,13 @@ public class Griglia {
         for (int i = 0; i < statoNavi.length; i++) {
             if (statoNavi[i] == false) {
                 tutteAffondate = false;
+                break;
             }
         }
-        if (tutteAffondate == true)
-            naviAffondate.add("all"); // 10:codice di fine partita
+        if (tutteAffondate) {
+            naviAffondate.clear();
+            naviAffondate.add(new String[] { "all" }); // 10:codice di fine partita
+        }
         return naviAffondate;
     }
 

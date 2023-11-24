@@ -21,10 +21,10 @@ public class Server {
         ThreadFase2[] fasi2 = new ThreadFase2[2];
         fasi2[0] = new ThreadFase2(utilities[0], sockets[0]); // nella fase 2 non serve la condivisa
         fasi2[1] = new ThreadFase2(utilities[1], sockets[1]);
-        RandomTurno randomTurno = new RandomTurno(c);
+        RandomTurno randomTurno = new RandomTurno(c, utilities[0], sockets[0], sockets[1]);
         ThreadFase3[] fasi3 = new ThreadFase3[2];
-        fasi3[0] = new ThreadFase3(utilities[0], sockets[0],sockets[1], c); // nella fase 2 non serve la condivisa
-        fasi3[1] = new ThreadFase3(utilities[1], sockets[1],sockets[0], c);
+        fasi3[0] = new ThreadFase3(utilities[0], sockets[0], c); // nella fase 2 non serve la condivisa
+        fasi3[1] = new ThreadFase3(utilities[1], sockets[1], c);
         for (ThreadSocket ths : sockets) {
             ths.start();
         }
@@ -38,10 +38,10 @@ public class Server {
         for (ThreadFase2 tf2 : fasi2) {
             tf2.join();
         }
-        Griglia temp=new Griglia();
-        temp=utilities[1].griglia;                  //per invertire le griglie
-        utilities[1].griglia=utilities[0].griglia;  //per invertire le griglie
-        utilities[0].griglia=temp;                  //per invertire le griglie
+        Griglia temp = new Griglia();
+        temp = utilities[1].griglia; // per invertire le griglie
+        utilities[1].griglia = utilities[0].griglia; // per invertire le griglie
+        utilities[0].griglia = temp; // per invertire le griglie
         System.out.println("let's start!");
         randomTurno.impostaTurni();
         for (ThreadFase3 tf3 : fasi3) {

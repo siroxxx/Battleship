@@ -39,9 +39,11 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                         if (n == 0)
                             g2.setColor(Costanti.MAP_CYAN);
                         else if (n == -1)
-                            g2.setColor(Color.RED);
+                            g2.setColor(Color.WHITE);
+                        else if (n == 2)
+                            g2.setColor(Color.BLACK);
                         else
-                            g2.setColor(Color.GREEN);
+                            g2.setColor(Color.RED);
 
                     }
 
@@ -93,6 +95,10 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                             g2.setColor(new Color(30, 129, 176));
                         else if (n == -1)
                             g2.setColor(Color.RED);
+                        else if (n == -2)
+                            g2.setColor(Color.WHITE);
+                        else if (n == -3)
+                            g2.setColor(Color.BLACK);
                         else
                             g2.setColor(condivisa.listaNavi.flotta.get(n - 1).colore);
 
@@ -143,7 +149,6 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
     }
 
     @Override

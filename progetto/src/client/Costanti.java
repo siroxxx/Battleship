@@ -11,7 +11,7 @@ public class Costanti {
     public static final String INDIRIZZO = "127.0.0.1";// indirizzo ip del server
     public static final int PORTA_SERVER = 777;// porta del server
 
-    private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();// dimensioni dello schermo
+    public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();// dimensioni dello schermo
 
     // valori per la mappa
     public static final int COLONNE = 10;// colonne della griglia
