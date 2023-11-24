@@ -52,7 +52,7 @@ public class FasePreparazione extends MyPanel {
             }
         });
 
-        button.setBounds(200, 100, 200, 200); // TODO: da sistemare coordinate bottoni
+        button.setBounds(100, 100, 200, 200); // TODO: da sistemare coordinate bottoni
 
         return button;
     }

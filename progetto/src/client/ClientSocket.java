@@ -21,8 +21,7 @@ public class ClientSocket {
         System.out.println("connesso");
         String risposta = "";
         String daInviare = "";
-        Fase1 f1 = new Fase1(); // fase in cui si posizionano le navi e si confermano
-        Flotta f = f1.getCoordinatNavi();
+        Flotta f = f1.getCoordinateNavi();//PASSARE COORDINATE NAVI
         writer.println(p.parseCoordinate(f));
         risposta = reader.readLine(); // risposta della creazione della griglia
         System.out.println(risposta); // messaggio di conferma della griglia
@@ -37,7 +36,7 @@ public class ClientSocket {
         do { // devo
             if (statoAttuale == true) { // TODO: collegare la variabile che simboleggia attacco e difesa
                 if (statoPrecedente != statoAttuale) { // se è cambiato lo stato cambia schermata
-                    cambiaSchermata();// TODO:collegamento ad un metodo che cambia schermata
+                    
                 }
                 statoPrecedente = true;
                 daInviare = "";// TODO:collegare il payload da inviare al server
@@ -68,7 +67,7 @@ public class ClientSocket {
                                                                                     // le navi sono state affondate
                     fine = true;
                 }
-                aggiornaGrafica(true, risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
+                MyFrame.faseAtt.getRisultati(risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
                                                                                      // aggiorna grafica a cui potrei
                                                                                      // passare stato di attacco o
                                                                                      // difesa e tutti i possibili
@@ -79,7 +78,7 @@ public class ClientSocket {
 
             } else { // se si è in difesa
                 if (statoPrecedente != statoAttuale) { // se è cambiato lo stato cambia schermata
-                    cambiaSchermata();// TODO:collegamento ad un metodo che cambia schermata
+                    condivisa.stato = 2;
                 }
                 statoPrecedente = false;
                 risposta = reader.readLine();
@@ -106,7 +105,7 @@ public class ClientSocket {
                         break;
                 }
 
-                aggiornaGrafica(true, risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
+                MyFrame.faseAtt.getRisultati(risultatiSpari, naviAffondate, risRadar, fine);// TODO: collegare metodo che
                                                                                      // aggiorna grafica a cui potrei
                                                                                      // passare stato di attacco o
                                                                                      // difesa e tutti i possibili

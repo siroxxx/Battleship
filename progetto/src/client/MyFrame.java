@@ -1,5 +1,9 @@
 package client;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -11,7 +15,7 @@ public class MyFrame extends JFrame {
     MyPanel panel;// pannello
     condivisa cond;// classe condivisa
     static FasePreparazione fasePrep;// fase di preparazione
-    static FaseAttDif faseAtt;// fase di attacco
+    public static FaseAttDif faseAtt;// fase di attacco
 
     MyFrame() throws IOException {
 
@@ -24,12 +28,12 @@ public class MyFrame extends JFrame {
 
         panel = new MyPanel();
 
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setUndecorated(true);// tolgo la barra per poter chiudere o ridimensionare la pagina
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //this.setUndecorated(true);// tolgo la barra per poter chiudere o ridimensionare la pagina
         this.pack();
         this.setVisible(true);
 
-        inizio();
+        //inizio();
 
         // inizio del thread
         AspettaFine aF = new AspettaFine();
@@ -41,6 +45,7 @@ public class MyFrame extends JFrame {
         }
 
         // faccio partire la fase di attacco
+        ClientSocket cs = new ClientSocket(this);
         fineFase1();
         faseAtt = new FaseAttDif();
         this.add(faseAtt);
@@ -49,6 +54,40 @@ public class MyFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
 
         // TODO: Collegare la socket e iniziare la partita
+
+        this.addMouseListener( new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+            }
+            
+        });
     }
 
     // creo la fase di preparazione e la aggiungo al frame

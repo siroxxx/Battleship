@@ -8,7 +8,7 @@ public class AspettaFine extends Thread {
 
     @Override
     public void run() {
-        while (Condivisa.stato != -1) {
+        while (condivisa.stato != -1) {
 
             try {
                 sleep(1);

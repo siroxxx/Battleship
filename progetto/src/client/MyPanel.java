@@ -143,6 +143,7 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        
     }
 
     @Override
