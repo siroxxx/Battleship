@@ -125,4 +125,10 @@ public class Parser {
         return s;
     }
 
+    public Integer getRadarNumDifesa(String risposta) {
+        String[] temp = risposta.split("_");
+
+        return Integer.parseInt(temp[1].split(";")[1]);
+    }
+
 }

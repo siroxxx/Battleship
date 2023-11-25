@@ -62,7 +62,7 @@ public class ThreadFase3 extends Thread {
                             e.printStackTrace();
                         }
                     }
-                } while ((!(c.rispostaDaInoltrare.equals("cambio;"))) && c.chiHaPerso == 0); // resta in difesa se non
+                } while (c.turno==difesa && c.chiHaPerso == 0); // resta in difesa se non
                 // c'è cambio turno o se
                 // nessuno ha vinto
                 ///////////////////////////////////////////////////////////////////////////////////////////// DIFESA!
@@ -103,12 +103,12 @@ public class ThreadFase3 extends Thread {
                     risultatiSpari = util.griglia.spara(datiNumerici);
                     sparo = true;
                     break;
-                case "cambioturno":
-                    c.cambioturno(); // cambio del turno
-                    risposta = "cambio;";
-                    System.out.println("cambio turno");
-                    System.out.println(c.turno);
-                    break;
+                // case "cambioturno":
+                //     c.cambioturno(); // cambio del turno
+                //     risposta = "cambio;";
+                //     System.out.println("cambio turno");
+                //     System.out.println(c.turno);
+                //     break;
             }
             if (sparo == true) {
                 risposta += "spari;";
@@ -138,6 +138,7 @@ public class ThreadFase3 extends Thread {
                         }
                     }
                 }
+                
             }
             try
 
@@ -150,6 +151,12 @@ public class ThreadFase3 extends Thread {
             c.rispostaDaInoltrare = mexRicevuto + "_" + risposta;
             c.daInoltrare = true;
             writer.println(risposta); // invio la risposta
+            
+            if(risultatiSpari.length==1 && risultatiSpari[0]==false){       //colpo singolo mancato, cambio del turno
+                    c.cambioturno(); // cambio del turno
+                    System.out.println("cambio turno");
+                    System.out.println(c.turno);
+                }
         }
 
     }

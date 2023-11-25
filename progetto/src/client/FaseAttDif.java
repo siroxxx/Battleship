@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 public class FaseAttDif extends MyPanel {
     public static Minimappa mappa = new Minimappa(); // 0: cella ignota; -1 cella vuota; 1: cella colpita; 2: nave
                                                      // affondata
-    private int energia = 0; // energia disponibile per le abilità speciali
+    public int energia = 0; // energia disponibile per le abilità speciali
     private JButton btnBomba, btnAereo, btnRadar; // pulsanti per le abilità speciali
     private Boolean isBombing = false, isAirAttack = false; // true se viene premuto il pulsante per la bomba con
                                                             // abbastanza energia
@@ -62,8 +62,8 @@ public class FaseAttDif extends MyPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        if (condivisa.stato == 1)
-            energia += 2;
+        // if (condivisa.stato == 1)
+        // energia += 2;
 
         disegnaMappa(g2, 0, mappa);
 
@@ -153,10 +153,10 @@ public class FaseAttDif extends MyPanel {
                 energia -= 4;
             } else if (nome == "RADAR" && energia >= 3) {
                 isRadar = true;
-                energia -= 0;
+                energia -= 3;
             } else if (energia >= 9) {
                 isAirAttack = true;
-                energia -= 0;
+                energia -= 9;
             }
         }
     }
@@ -190,9 +190,10 @@ public class FaseAttDif extends MyPanel {
                 }
             } else {
                 for (int i = 0; i < spari.length; i++) {
-                    if (spari[i])
+                    if (spari[i]) {
                         condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(i).y).set(puntiDifesa.get(i).x, -1);
-                    else
+                        energia += 1; // AGGIUNGI 1 ENERGIA OGNI VIOLTA CHE MI VIENE COLPITA UNA NAVE
+                    } else
                         condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(i).y).set(puntiDifesa.get(i).x, -2);
                 }
 
@@ -208,9 +209,16 @@ public class FaseAttDif extends MyPanel {
             }
 
             isBombing = false;
-        } else {
-            listNumRadar.add(radarNum);
-            isRadar = false;
+            isAirAttack = false; // resettare AirAttack
+        } else {// VALORE UTILIZZATO PER DIRE SE SONO IN DIFESA, IN QUESTO CASO NON SERVE NELLA
+                // GRAFICA
+            if (condivisa.stato == 1) {
+                Point minimapPoint = Minimappa.getMapPoint(listSpari.get(0), 0);
+                mappa.minimappa.get(minimapPoint.y).set(minimapPoint.x, 10 + radarNum);
+                isRadar = false;
+            } else {
+                condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(0).y + 1).set(puntiDifesa.get(0).x, 10 + radarNum);
+            }
         }
 
         listSpari.clear();

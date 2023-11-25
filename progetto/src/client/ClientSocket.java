@@ -69,11 +69,13 @@ public class ClientSocket {
                     if (naviAff != null)
                         naviAffondate = p.parseNaviAffondate(naviAff);
 
-                    if (risultatiSpari[0] == false)
+                    if (risultatiSpari[0] == false && risultatiSpari.length == 1) // DEVE ESSEREV UN COLPO SINGOLO-> PER
+                                                                                  // QUESTO CONTROLLO LENGHT
                         condivisa.stato = 2;
                     break;
                 case "radar":
                     risRadar = p.parseRadar(payload);
+                    System.out.println("radar: " + risRadar);
                     break;
             }
             if (naviAffondate != null)
@@ -99,11 +101,18 @@ public class ClientSocket {
                 case "aereo":
                     risultatiSpari = p.parseSpari(payload);
                     naviAffondate = p.getNaviAffDifesa(risposta);
-                    if (comando.equals("sparo") && !risultatiSpari[0])
+                    if (comando.equals("sparo") && risultatiSpari.length == 1 && !risultatiSpari[0]) { // CONTROLLO CON
+                                                                                                       // LENGHT PER
+                                                                                                       // VEDERE SE ERA
+                                                                                                       // UN COLPO
+                                                                                                       // SINGOLO
                         condivisa.stato = 1;
+                        MyFrame.faseAttDif.energia += 2; // SPERO CHE FUNZIONI, AGGIUNGO 2 ENERGIA OGNI INIZIO TURNO
+                    }
                     break;
                 case "radar":
-                    risRadar = null; // numero fittizio dato che non serve alla difesa
+                    risRadar = p.getRadarNumDifesa(risposta);
+                    ; // numero fittizio dato che non serve alla difesa
                     break;
             }
             if (naviAffondate != null)

@@ -42,7 +42,11 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                             g2.setColor(Color.WHITE);
                         else if (n == 2)
                             g2.setColor(Color.BLACK);
-                        else
+                        else if (n > 10) {
+                            Font f2 = new Font("Congenial Black", Font.BOLD, 30 * Costanti.screenSize.width / 1920);
+                            g2.setFont(f2);
+                            g2.drawString(Integer.toString(n % 10), initX, initY);
+                        } else
                             g2.setColor(Color.RED);
 
                     }
@@ -99,7 +103,11 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                             g2.setColor(Color.WHITE);
                         else if (n == -3)
                             g2.setColor(Color.BLACK);
-                        else
+                        else if (n > 10) {
+                            Font f2 = new Font("Congenial Black", Font.BOLD, 20 * Costanti.screenSize.width / 1920);
+                            g2.setFont(f2);
+                            g2.drawString(Integer.toString(n % 10), initX, initY);
+                        } else
                             g2.setColor(condivisa.listaNavi.flotta.get(n - 1).colore);
 
                         g2.fillRect(initX, initY, Costanti.MINIMAP_BLOCK_WIDTH, Costanti.MINIMAP_BLOCK_HEIGHT);

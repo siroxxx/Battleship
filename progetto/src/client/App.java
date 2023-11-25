@@ -18,7 +18,9 @@ public class App {
         cs.aspettaMessaggio();
 
         frame.faseAttDif();
-
+        if(condivisa.stato==1){     //aggiunta energia al primo turno
+            MyFrame.faseAttDif.energia+=2;  //AGGIUNGO 2 ENERGIA SE è IN ATTACCO
+        }
         do {
             AspettaComando waitComando = new AspettaComando();
             waitComando.start();
