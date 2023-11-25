@@ -33,8 +33,9 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                     int initX = Costanti.MAP_X + (k * Costanti.WIDTH) + gap;
                     int initY = Costanti.MAP_Y + (i * Costanti.HEIGHT);
 
-                    if (a == 0) {
+                        Boolean isRadarPanel = false;
                         int n = map.minimappa.get(i).get(k);
+                    if (a == 0) {
 
                         if (n == 0)
                             g2.setColor(Costanti.MAP_CYAN);
@@ -43,17 +44,21 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                         else if (n == 2)
                             g2.setColor(Color.BLACK);
                         else if (n > 10) {
-                            Font f2 = new Font("Congenial Black", Font.BOLD, 30 * Costanti.screenSize.width / 1920);
-                            g2.setFont(f2);
-                            int temp=n%10;
-                            g2.drawString(temp.toString(), initX, initY);
+                            isRadarPanel = true;
                         } else
                             g2.setColor(Color.RED);
 
                     }
 
-                    if (a == 0)
+                    if (a == 0){
                         g2.fillRect(initX, initY, Costanti.WIDTH, Costanti.HEIGHT);
+                        if(isRadarPanel) {
+                            g2.setColor(Color.BLACK);
+                            Font f2 = new Font("Congenial Black", Font.BOLD, 60 * Costanti.screenSize.width / 1920);
+                            g2.setFont(f2);
+                            g2.drawString(Integer.toString(n % 10), initX, initY + Costanti.HEIGHT);
+                        }
+                    }
                     else {
                         g2.drawRect(initX, initY, Costanti.WIDTH, Costanti.HEIGHT);
                         g2.drawRect(initX + 1, initY + 1, Costanti.WIDTH - 2, Costanti.HEIGHT - 2);
@@ -93,8 +98,9 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                     int initX = Costanti.MINIMAP_X + (k * Costanti.MINIMAP_BLOCK_WIDTH);
                     int initY = Costanti.MINIMAP_Y + (i * Costanti.MINIMAP_BLOCK_HEIGHT);
 
-                    if (a == 0) {
+                        Boolean isRadarPanel = false;
                         int n = condivisa.mappaDifesa.minimappa.get(i).get(k);
+                    if (a == 0) {
 
                         if (n == 0)
                             g2.setColor(new Color(30, 129, 176));
@@ -105,13 +111,17 @@ public class MyPanel extends JPanel implements MouseInputListener, KeyListener {
                         else if (n == -3)
                             g2.setColor(Color.BLACK);
                         else if (n > 10) {
-                            Font f2 = new Font("Congenial Black", Font.BOLD, 20 * Costanti.screenSize.width / 1920);
-                            g2.setFont(f2);
-                            g2.drawString(Integer.toString(n % 10), initX, initY);
+                            isRadarPanel = true;
                         } else
                             g2.setColor(condivisa.listaNavi.flotta.get(n - 1).colore);
 
                         g2.fillRect(initX, initY, Costanti.MINIMAP_BLOCK_WIDTH, Costanti.MINIMAP_BLOCK_HEIGHT);
+                        if(isRadarPanel) {
+                            g2.setColor(Color.BLACK);
+                            Font f2 = new Font("Congenial Black", Font.BOLD, 20 * Costanti.screenSize.width / 1920);
+                            g2.setFont(f2);
+                            g2.drawString(Integer.toString(n % 10), initX, initY + Costanti.MINIMAP_BLOCK_HEIGHT);
+                        }
                     } else {
                         g2.drawRect(initX, initY, Costanti.MINIMAP_BLOCK_WIDTH, Costanti.MINIMAP_BLOCK_HEIGHT);
                         g2.drawRect(initX + 1, initY + 1, Costanti.MINIMAP_BLOCK_WIDTH - 2,

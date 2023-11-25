@@ -71,12 +71,18 @@ public class FaseAttDif extends MyPanel {
         g2.setFont(f);
         g2.setColor(Color.BLACK);
 
-        if (condivisa.stato == 1)
-            g2.drawString("SCEGLI DOVE ATTACCARE:", Costanti.WIDTH / 2, Costanti.HEIGHT);
+        if (condivisa.stato == 1){
+            g2.drawString("SCEGLI DOVE ATTACCARE:", Costanti.WIDTH / 2, Costanti.HEIGHT);}
         else if (condivisa.stato == 2) {
             g2.drawString("ASPETTA IL TURNO", Costanti.WIDTH / 2, Costanti.HEIGHT);
             g2.drawString("DELL'AVVERSARIO", Costanti.WIDTH / 2, Costanti.HEIGHT * 4 / 3);
         }
+
+        g2.drawString("Radar 3x3: costo 3", Costanti.WIDTH / 2, Costanti.HEIGHT * 4 );
+        g2.drawString("Bommba 2x2: costo 4", Costanti.WIDTH / 2, Costanti.HEIGHT * 5 );
+        g2.drawString("(Cliccare sulla cella ", Costanti.WIDTH / 2, Costanti.HEIGHT * 6 );
+        g2.drawString("in alto a sinistra)", Costanti.WIDTH / 2, Costanti.HEIGHT * 7 );
+        g2.drawString("Bommba 3x3: costo 9", Costanti.WIDTH / 2, Costanti.HEIGHT * 8 );
 
         disegnaMinimappa(g2);
 
@@ -179,7 +185,7 @@ public class FaseAttDif extends MyPanel {
                         mappa.minimappa.get(minimapPoint.y).set(minimapPoint.x, -1);
                 }
 
-                if (navi != null) {
+                if (navi != null && !navi[0].equals("tutte")) {
                     for (String string : navi) {
                         String[] values = string.split(",");
 
@@ -217,7 +223,7 @@ public class FaseAttDif extends MyPanel {
                 mappa.minimappa.get(minimapPoint.y).set(minimapPoint.x, 10 + radarNum);
                 isRadar = false;
             } else {
-                condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(0).y + 1).set(puntiDifesa.get(0).x, 10 + radarNum);
+                condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(0).y).set(puntiDifesa.get(0).x, 10 + radarNum);
             }
         }
 
