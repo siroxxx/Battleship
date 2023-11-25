@@ -68,6 +68,7 @@ public class FasePreparazione extends MyPanel {
         g2.setFont(f);
         g2.setColor(Color.BLACK);
         g2.drawString("INSERISCI LE TUE NAVI:", Costanti.WIDTH / 2, Costanti.HEIGHT);
+        g2.drawString("Premere tasto destro per l'invio", Costanti.WIDTH / 2, Costanti.HEIGHT * 2);
 
         disegnaNavi(g2);
     }

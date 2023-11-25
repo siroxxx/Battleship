@@ -6,7 +6,9 @@ import java.util.List;
 
 // classe della minimappa
 public class Minimappa {
-    List<List<Integer>> minimappa = new ArrayList<>();// la minimappa è una lista di liste di interi
+    public List<List<Integer>> minimappa = new ArrayList<>();// la minimappa è una lista di liste di interi
+    public List<Point> puntiRadar = new ArrayList<>();
+    public List<Integer> valoriRadar = new ArrayList<>();
 
     // riempe la minimappa di tutti 0
     public Minimappa() {

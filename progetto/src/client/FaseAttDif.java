@@ -105,6 +105,8 @@ public class FaseAttDif extends MyPanel {
                 g2.drawString("HAI PERSO", (int) Costanti.screenSize.getWidth() / 2,
                         (int) Costanti.screenSize.getHeight() / 2);
         }
+
+        disegnaLegenda(g2);
     }
 
     // gestione del click del mouse sulla mappa
@@ -181,7 +183,7 @@ public class FaseAttDif extends MyPanel {
                     Point minimapPoint = Minimappa.getMapPoint(listSpari.get(i), 0);
                     if (spari[i])
                         mappa.minimappa.get(minimapPoint.y).set(minimapPoint.x, 1);
-                    else
+                    else if(mappa.minimappa.get(minimapPoint.y).get(minimapPoint.x) == 0)
                         mappa.minimappa.get(minimapPoint.y).set(minimapPoint.x, -1);
                 }
 
@@ -199,11 +201,11 @@ public class FaseAttDif extends MyPanel {
                     if (spari[i]) {
                         condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(i).y).set(puntiDifesa.get(i).x, -1);
                         energia += 1; // AGGIUNGI 1 ENERGIA OGNI VIOLTA CHE MI VIENE COLPITA UNA NAVE
-                    } else
+                    } else if (condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(i).y).get(puntiDifesa.get(i).x) == 0)
                         condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(i).y).set(puntiDifesa.get(i).x, -2);
                 }
 
-                if (navi != null) {
+                if (navi != null && !navi[0].equals("tutte")) {
                     for (String string : navi) {
                         String[] values = string.split(",");
 
@@ -220,11 +222,13 @@ public class FaseAttDif extends MyPanel {
                 // GRAFICA
             if (condivisa.stato == 1) {
                 Point minimapPoint = Minimappa.getMapPoint(listSpari.get(0), 0);
-                mappa.minimappa.get(minimapPoint.y).set(minimapPoint.x, 10 + radarNum);
+                mappa.puntiRadar.add(new Point(minimapPoint.x, minimapPoint.y));
+                mappa.valoriRadar.add(radarNum);
                 isRadar = false;
-            } else {
-                condivisa.mappaDifesa.minimappa.get(puntiDifesa.get(0).y).set(puntiDifesa.get(0).x, 10 + radarNum);
-            }
+            }/* else {
+                condivisa.mappaDifesa.puntiRadar.add(new Point(puntiDifesa.get(0).x, puntiDifesa.get(0).y));
+                condivisa.mappaDifesa.valoriRadar.add(radarNum);
+            }*/
         }
 
         listSpari.clear();

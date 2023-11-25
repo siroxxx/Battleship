@@ -1,0 +1,170 @@
+@startuml classClient
+!define ArrowHeadSize 0.2
+!define ArrowColor black
+!define ClassBackgroundColor white
+!define ClassBorderColor black
+!define ClassBorderThickness 1
+
+class App {
++main()
+}
+
+class Parser {
++parseCoordinate()
++parseComando()
++parsePayload()
++parsePayloadDifesa()
++getNaviAffDifesa()
++getCoordineDifesa()
++parseSpari()
++parseNaviAffondate()
++getNaviAffondate()
++parseInvio()
++getRadarNumDifesa()
+}
+
+class AspettaComando {
++AspettaComando()
++run()
+}
+
+class AspettaStato {
++AspettaStato()
++run()
+}
+
+class ClientSocket {
+-MyFrame
+-Parser p
+-socket
+-InputStream
+-BufferedReader
+-PrintWriter
+-OutputStream
++clientSocket()
++aspettaMessaggio()
++azione()
+}
+
+class condivisa{
+-stato
+-Flotta
+-naveTrascinata
+-MiniMappa
++condivisa()
++getNave()
++setMinimappa()
+}
+
+class Costanti {
+-COSTANTI
+}
+
+class FaseAttDif{
+-energia
+-MiniMappa
+-bottoni
+-booleanePoteri
+-listCoordinateRadar
+-listNumRadar
+-isVittoria
+-listSpari
+-comando
++faseAttDif()
++paintComponent()
++mouseClicked()
++setRisultati()
+}
+
+class fasePreparazione {
+-Condivisa1
+-Condivisa2
+-Random
++fasePreparazione()
++paintComponent()
++mouseClicked()
++setRisultati()
+}
+
+class Flotta {
+-flotta
++getRectangle()
++run()
++getMapPoint()
+}
+
+class MiniMappa {
+-minimappa
++Minimappa()
++setNavi()
++run()
+}
+
+class MyFrame {
+-panel
+-condivisa
+-fasePreparazione
+-faseAttDif
++MyFrame()
++inizio()
++fineFase1()
++faseAttDif()
+}
+
+class MyPanel {
+-condivisa
++MyPanel()
++disegnaMappa()
++disegnaNavi()
++disegnaMiniMappa()
++mousePressed()
+}
+
+class Nave {
+-lunghezza
+-coordinate
+-isSet
+-rotazione
+-id
+-colore 
++Nave()
++resettaNave()
++ruotaNave()
+}
+
+App -> Parser
+App -> AspettaComando
+App -> AspettaStato
+App -> ClientSocket
+App -> condivisa
+App -> Costanti
+App -> fasePreparazione
+App -> FaseAttDif
+App -> Flotta
+App -> MiniMappa
+App -> MyFrame
+App -> MyPanel
+App -> Nave
+Parser -> condivisa
+Parser -> FaseAttDif
+Parser -> Flotta
+Parser -> MiniMappa
+Parser -> MyFrame
+Parser -> MyPanel
+Parser -> Nave
+AspettaComando -> ClientSocket
+AspettaStato -> ClientSocket
+ClientSocket -> condivisa
+condivisa -> FaseAttDif
+condivisa -> fasePreparazione
+condivisa -> Flotta
+condivisa -> MiniMappa
+condivisa -> MyFrame
+condivisa -> MyPanel
+condivisa -> Nave
+FaseAttDif -> MyFrame
+fasePreparazione -> MyFrame
+Flotta -> MyFrame
+MiniMappa -> MyFrame
+MyPanel -> MyFrame
+Nave -> MyFrame

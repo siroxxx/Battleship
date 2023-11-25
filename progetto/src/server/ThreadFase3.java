@@ -62,7 +62,7 @@ public class ThreadFase3 extends Thread {
                             e.printStackTrace();
                         }
                     }
-                } while (c.turno==difesa && c.chiHaPerso == 0); // resta in difesa se non
+                } while (c.turno==difesa); // resta in difesa se non
                 // c'è cambio turno o se
                 // nessuno ha vinto
                 ///////////////////////////////////////////////////////////////////////////////////////////// DIFESA!
