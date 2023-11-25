@@ -1,6 +1,58 @@
-@startuml UseCaseBattleShip
+@startuml UC
+left to right direction
+'actor Guest as g
+package People {
+'actor Chef as c
+actor "giocatore1" as G1
+actor "giocatore2" as G2
+}
+package Client {
+usecase "connetti" as UC0   
+usecase "sposta nave" as UC1
+usecase "ruota nave" as UC2
+usecase "Conferma navi" as UC3
+usecase "Sparo" as UC4
+usecase "Bomba" as UC5
+usecase "Radar" as UC6
+usecase "Speciale" as UC7
+usecase "Fine turno" as UC8
+}
 
-usecase (Server) as UCS
-usecase (Client) as UCC
+G1 <--> UC0
+G1 <--> UC4
+G1 <--> UC1
+G1 <--> UC2
+G1 <--> UC3
+G1 <--> UC5
+G1 <--> UC6
+G1 <--> UC7
+G1 <--> UC8
 
+G2 <--> UC0
+G2 <--> UC4
+G2 <--> UC1
+G2 <--> UC2
+G2 <--> UC3
+G2 <--> UC5
+G2 <--> UC6
+G2 <--> UC7
+G2 <--> UC8
+
+package Server {
+usecase "Aggiorna griglia" as UC00
+usecase "Cambio del Turno" as UC11
+usecase "Scansione radar" as UC22
+usecase "Passaggio alla fase 3" as UC33
+usecase "Passaggio alla fase 2" as UC44
+usecase "Controllo fine gioco" as UC55
+}
+
+UC0 <--> UC44
+UC8 <--> UC11
+UC4 <--> UC00
+UC5 <--> UC00
+UC7 <--> UC00
+UC6 <--> UC22
+UC00 <--> UC55
+UC3 <--> UC33
 @enduml
